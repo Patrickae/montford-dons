@@ -1,0 +1,42 @@
+<%= form_with(model: payment, class: "contents") do |form| %>
+  <% if payment.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% payment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :week_id %>
+    <%= form.text_field :week_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:week_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:week_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :charge_type_id %>
+    <%= form.text_field :charge_type_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:charge_type_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:charge_type_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:user_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:user_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :total_paid %>
+    <%= form.text_field :total_paid, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:total_paid].none?, "border-red-400 focus:outline-red-600": payment.errors[:total_paid].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :paid_on %>
+    <%= form.date_field :paid_on, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:paid_on].none?, "border-red-400 focus:outline-red-600": payment.errors[:paid_on].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
