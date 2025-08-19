@@ -2,10 +2,5 @@
 
 one:
   date: 2025-08-18
-  opponent: MyString
-  lanes: MyString
-
-two:
-  date: 2025-08-18
-  opponent: MyString
-  lanes: MyString
+  opponent: 'Some Team'
+  lanes: '12,13'

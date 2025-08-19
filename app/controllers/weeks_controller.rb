@@ -1,9 +1,9 @@
 class WeeksController < ApplicationController
+  load_and_authorize_resource
   before_action :set_week, only: %i[ show edit update destroy ]
 
   # GET /weeks or /weeks.json
   def index
-    @weeks = Week.all
   end
 
   # GET /weeks/1 or /weeks/1.json
@@ -25,7 +25,7 @@ class WeeksController < ApplicationController
 
     respond_to do |format|
       if @week.save
-        format.html { redirect_to @week, notice: "Week was successfully created." }
+        format.html { redirect_to weeks_path, notice: "Week was successfully created." }
         format.json { render :show, status: :created, location: @week }
       else
         format.html { render :new, status: :unprocessable_entity }

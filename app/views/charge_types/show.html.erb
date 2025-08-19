@@ -9,7 +9,13 @@
 
   <%= render @charge_type %>
 
-  <%= link_to "Edit this charge type", edit_charge_type_path(@charge_type), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to charge types", charge_types_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this charge type", @charge_type, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+  <div class="flex flex-col sm:flex-row gap-2 mt-5">
+    <% if can? :update, @charge_type %>
+      <%= link_to "Edit this charge type", edit_charge_type_path(@charge_type), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <% end %>
+    <%= link_to "Back to charge types", charge_types_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-purple-600 hover:bg-purple-700 inline-block font-medium text-white" %>
+    <% if can? :destroy, @charge_type %>
+      <%= button_to "Destroy this charge type", @charge_type, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
 </div>

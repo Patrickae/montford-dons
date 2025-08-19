@@ -8,8 +8,13 @@
   <h1 class="font-bold text-4xl">Showing week</h1>
 
   <%= render @week %>
-
-  <%= link_to "Edit this week", edit_week_path(@week), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to weeks", weeks_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this week", @week, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+  <div class="flex flex-col sm:flex-row gap-2 mt-5">
+    <% if can? :update, @week %>
+    <%= link_to "Edit this week", edit_week_path(@week), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <% end %>
+    <%= link_to "Back to weeks", weeks_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-green-600 hover:bg-green-700 inline-block font-medium text-white" %>
+    <% if can? :destroy, @week %>
+      <%= button_to "Destroy this week", @week, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
 </div>

@@ -1,9 +1,9 @@
 class ChargeTypesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_charge_type, only: %i[ show edit update destroy ]
 
   # GET /charge_types or /charge_types.json
   def index
-    @charge_types = ChargeType.all
   end
 
   # GET /charge_types/1 or /charge_types/1.json

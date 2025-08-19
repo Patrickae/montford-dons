@@ -1,11 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  amount: 1
-  frequency: MyString
+  name: 'Weekly League Fee'
+  amount: 30.00
+  frequency: weekly
 
-two:
-  name: MyString
-  amount: 1
-  frequency: MyString

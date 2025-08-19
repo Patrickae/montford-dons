@@ -4,12 +4,5 @@ one:
   week: one
   charge_type: one
   user: one
-  total_paid: 9.99
-  paid_on: 2025-08-18
-
-two:
-  week: two
-  charge_type: two
-  user: two
-  total_paid: 9.99
+  total_paid: 30.00
   paid_on: 2025-08-18
