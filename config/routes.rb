@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :payments
   resource :session
   resources :passwords, param: :token
-  resources :weeks
+  resources :weeks do
+    resources :commitments, only: [:create, :destroy]
+  end
   resources :charge_types
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
