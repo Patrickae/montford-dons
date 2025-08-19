@@ -1,22 +1,73 @@
-<div id="<%= dom_id payment %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Week:</strong>
-    <%= payment.week_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Charge type:</strong>
-    <%= payment.charge_type_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= payment.user_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Total paid:</strong>
-    <%= payment.total_paid %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Paid on:</strong>
-    <%= payment.paid_on %>
+<div id="<%= dom_id payment %>" class="space-y-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="flex items-center space-x-3">
+      <div class="flex-shrink-0">
+        <div class="p-2 bg-blue-100 rounded-lg">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-500">Week</p>
+        <p class="text-base font-semibold text-gray-900"><%= payment.week_id %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <div class="flex-shrink-0">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-500">Charge Type</p>
+        <p class="text-base font-semibold text-gray-900"><%= payment.charge_type_id %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <div class="flex-shrink-0">
+        <div class="p-2 bg-green-100 rounded-lg">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-500">User</p>
+        <p class="text-base font-semibold text-gray-900"><%= payment.user_id %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <div class="flex-shrink-0">
+        <div class="p-2 bg-yellow-100 rounded-lg">
+          <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-500">Amount</p>
+        <p class="text-base font-semibold text-gray-900">$<%= payment.total_paid %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <div class="flex-shrink-0">
+        <div class="p-2 bg-indigo-100 rounded-lg">
+          <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-500">Date Paid</p>
+        <p class="text-base font-semibold text-gray-900"><%= payment.paid_on&.strftime("%b %d, %Y") %></p>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,4 +1,105 @@
-<div>
-  <h1 class="font-bold text-4xl">Dashboard#index</h1>
-  <p>Find me in app/views/dashboard/index.html.erb</p>
+<div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome to Montford Dons</h1>
+    <p class="text-lg text-gray-600 mb-8">Manage your payments, schedules, and more</p>
+  </div>
+
+  <!-- Quick Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+      <div class="flex items-center">
+        <div class="p-2 bg-blue-400 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-blue-100">Total Payments</p>
+          <p class="text-2xl font-semibold"><%= Payment.count %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
+      <div class="flex items-center">
+        <div class="p-2 bg-green-400 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-green-100">Scheduled Weeks</p>
+          <p class="text-2xl font-semibold"><%= Week.count %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white">
+      <div class="flex items-center">
+        <div class="p-2 bg-purple-400 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-purple-100">Charge Types</p>
+          <p class="text-2xl font-semibold"><%= ChargeType.count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="bg-gray-50 rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <%= link_to new_payment_path, class: "flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200" do %>
+        <div class="p-2 bg-blue-100 rounded-lg mr-3">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="font-medium text-gray-900">New Payment</p>
+          <p class="text-sm text-gray-500">Add payment record</p>
+        </div>
+      <% end %>
+
+      <%= link_to new_week_path, class: "flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all duration-200" do %>
+        <div class="p-2 bg-green-100 rounded-lg mr-3">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="font-medium text-gray-900">Schedule Week</p>
+          <p class="text-sm text-gray-500">Add new week</p>
+        </div>
+      <% end %>
+
+      <%= link_to payments_path, class: "flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-purple-300 hover:shadow-md transition-all duration-200" do %>
+        <div class="p-2 bg-purple-100 rounded-lg mr-3">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="font-medium text-gray-900">View Payments</p>
+          <p class="text-sm text-gray-500">See all payments</p>
+        </div>
+      <% end %>
+
+      <%= link_to weeks_path, class: "flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200" do %>
+        <div class="p-2 bg-indigo-100 rounded-lg mr-3">
+          <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="font-medium text-gray-900">View Schedule</p>
+          <p class="text-sm text-gray-500">See all weeks</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

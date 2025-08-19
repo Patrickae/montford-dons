@@ -1,42 +1,94 @@
-<%= form_with(model: payment, class: "contents") do |form| %>
-  <% if payment.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+<div class="bg-white rounded-lg shadow-sm p-6">
+  <%= form_with(model: payment, class: "space-y-6") do |form| %>
+    <% if payment.errors.any? %>
+      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-red-800">
+              <%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:
+            </h3>
+            <div class="mt-2 text-sm text-red-700">
+              <ul class="list-disc pl-5 space-y-1">
+                <% payment.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-      <ul class="list-disc ml-6">
-        <% payment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-1">
+        <%= form.label :week_id, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.number_field :week_id, 
+            class: ["mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", 
+                   {"border-red-300 focus:border-red-500 focus:ring-red-500": payment.errors[:week_id].any?}],
+            placeholder: "Enter week ID" %>
+        <% if payment.errors[:week_id].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= payment.errors[:week_id].first %></p>
         <% end %>
-      </ul>
+      </div>
+
+      <div class="space-y-1">
+        <%= form.label :charge_type_id, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.number_field :charge_type_id, 
+            class: ["mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", 
+                   {"border-red-300 focus:border-red-500 focus:ring-red-500": payment.errors[:charge_type_id].any?}],
+            placeholder: "Enter charge type ID" %>
+        <% if payment.errors[:charge_type_id].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= payment.errors[:charge_type_id].first %></p>
+        <% end %>
+      </div>
+
+      <div class="space-y-1">
+        <%= form.label :user_id, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.number_field :user_id, 
+            class: ["mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", 
+                   {"border-red-300 focus:border-red-500 focus:ring-red-500": payment.errors[:user_id].any?}],
+            placeholder: "Enter user ID" %>
+        <% if payment.errors[:user_id].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= payment.errors[:user_id].first %></p>
+        <% end %>
+      </div>
+
+      <div class="space-y-1">
+        <%= form.label :total_paid, "Amount Paid", class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <%= form.number_field :total_paid, step: 0.01, 
+              class: ["pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", 
+                     {"border-red-300 focus:border-red-500 focus:ring-red-500": payment.errors[:total_paid].any?}],
+              placeholder: "0.00" %>
+        </div>
+        <% if payment.errors[:total_paid].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= payment.errors[:total_paid].first %></p>
+        <% end %>
+      </div>
+
+      <div class="space-y-1 md:col-span-2">
+        <%= form.label :paid_on, "Date Paid", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.date_field :paid_on, 
+            class: ["mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", 
+                   {"border-red-300 focus:border-red-500 focus:ring-red-500": payment.errors[:paid_on].any?}] %>
+        <% if payment.errors[:paid_on].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= payment.errors[:paid_on].first %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+      <%= link_to "Cancel", payments_path, 
+          class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <%= form.submit class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
     </div>
   <% end %>
-
-  <div class="my-5">
-    <%= form.label :week_id %>
-    <%= form.text_field :week_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:week_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:week_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :charge_type_id %>
-    <%= form.text_field :charge_type_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:charge_type_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:charge_type_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:user_id].none?, "border-red-400 focus:outline-red-600": payment.errors[:user_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :total_paid %>
-    <%= form.text_field :total_paid, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:total_paid].none?, "border-red-400 focus:outline-red-600": payment.errors[:total_paid].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :paid_on %>
-    <%= form.date_field :paid_on, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": payment.errors[:paid_on].none?, "border-red-400 focus:outline-red-600": payment.errors[:paid_on].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</div>
