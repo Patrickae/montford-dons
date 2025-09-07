@@ -1,0 +1,25 @@
+.flex.flex-col.space-y-6.p-2.max-w-screen
+  / Next Match Section
+  = render 'application/dashboard/this_week'
+  / Balance Card Section
+  .bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-6
+    %h3.text-xl.font-bold.text-gray-900.mb-4 Balance Card
+    .text-center
+      .text-2xl.font-bold.text-red-600.mb-4
+        Balance: -$60 Owed
+      .mb-6
+        .flex.justify-between.text-sm.text-gray-600.mb-2
+          %span Paid
+          %span Owed
+        .w-full.bg-gray-200.rounded-full.h-4
+          .bg-green-500.h-4.rounded-full{:style => "width: 80%"}
+      .grid.grid-cols-3.gap-4.text-center
+        .bg-gray-50.rounded-lg.p-3
+          .text-sm.text-gray-600 Fees
+          .text-lg.font-semibold.text-gray-900 $300
+        .bg-green-50.rounded-lg.p-3
+          .text-sm.text-gray-600 Paid
+          .text-lg.font-semibold.text-green-700 $240
+        .bg-red-50.rounded-lg.p-3
+          .text-sm.text-gray-600 Owed
+          .text-lg.font-semibold.text-red-700 $60

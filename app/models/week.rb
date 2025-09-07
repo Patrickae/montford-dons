@@ -1,6 +1,9 @@
 class Week < ApplicationRecord
   has_many :commitments, dependent: :destroy
-  has_many :committed_users, through: :commitments, source: :user
+  has_many :committed_users,
+            -> { where(commitments: { status: "going" }) },
+            through: :commitments,
+            source: :user
 
   def self.current
     Week.where(date: Date.today.beginning_of_week..Date.today.end_of_week).first

@@ -21,6 +21,8 @@ gem "jbuilder"
 
 gem "cancancan", "~> 3.0" # for authorization
 
+gem "haml", "~> 6.0" # for haml views
+
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"

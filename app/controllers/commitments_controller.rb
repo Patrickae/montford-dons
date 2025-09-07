@@ -1,8 +1,9 @@
 class CommitmentsController < ApplicationController
   before_action :set_week, only: [:create, :destroy]
+  before_action :set_commitment, only: %i[  update destroy ]
 
   def create
-    @commitment = current_user.commitments.build(week: @week)
+    @commitment = current_user.commitments.build(commitment_params)
     
     respond_to do |format|
       if @commitment.save
@@ -32,9 +33,28 @@ class CommitmentsController < ApplicationController
     end
   end
 
+  def update
+    p params
+    p commitment_params
+    respond_to do |format|
+      if @commitment.update(commitment_params)
+        format.html { redirect_to root_path, notice: "Commitment was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @commitment }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @commitment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
-  def set_week
-    @week = Week.find(params[:week_id])
+  def commitment_params
+    params.expect(commitment: [ :status ])
+  end
+
+  def set_commitment
+
+    @commitment = Commitment.find(params.expect(:id))
   end
 end

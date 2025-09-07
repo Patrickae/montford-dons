@@ -15,6 +15,6 @@ class User < ApplicationRecord
   end
 
   def committed_to?(week)
-    commitments.exists?(week: week)
+    commitments.exists?(week: week, status: "going")
   end
 end

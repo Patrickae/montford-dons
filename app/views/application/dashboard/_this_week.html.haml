@@ -1,0 +1,83 @@
+- if @current_week
+  .bg-white.rounded-lg.shadow-sm.p-6.mb-8
+    .flex.flex-col.flex-col.lg:items-center.justify-between.gap-6
+      / Week Info
+      %div
+        %h2.text-2xl.font-bold.text-gray-900.mb-2.text-center This Week's Match
+        .flex.items-center.space-x-4.text-gray-600
+          .flex.items-center.space-x-2
+            %svg.w-5.h-5{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+              %path{:d => "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+            %span= @current_week.display_date
+          .flex.items-center.space-x-2
+            %svg.w-5.h-5{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+              %path{:d => "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+              %path{:d => "M15 11a3 3 0 11-6 0 3 3 0 016 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+            %span= @current_week.vs_opponent
+          - if @current_week.lanes.present?
+            .flex.items-center.space-x-2
+              %svg.w-5.h-5{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+                %path{:d => "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+              %span
+                Lanes: #{@current_week.lanes}
+      / Commitment Action
+      .flex.flex-col.items-center.lg:items-end.space-y-4
+        .text-center
+          .flex.justify-center.space-x-4.mb-4
+            - if @user_committed
+              %button.px-6.py-2.bg-green-500.text-white.rounded-lg.hover:bg-green-600.transition-colors
+                Going ◉
+              = button_to commitment_path(@commitment),
+                method: :patch,
+                class: 'px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors cursor-pointer',
+                params: { commitment: {status: :not_going }} do
+                Not Going ○
+              
+            - else
+              = button_to commitment_path(@commitment),
+                method: :patch,
+                class: 'px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors cursor-pointer',
+                params: { commitment: {status: :going }} do
+                Going ○
+              %button{:class => "px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"}
+                Not Going ◉
+          .text-lg.text-gray-700.mb-4
+            Status:
+            %span{class: "font-semibold #{@commitment.status_text_html_class}"}
+              = @commitment.status&.titleize
+          .flex.justify-center.items-center.space-x-4
+            %span.text-lg.text-gray-700
+              Balance:
+              %span.font-semibold.text-red-600 Owe $30
+            %button.px-4.py-2.bg-blue-500.text-white.rounded-lg.hover:bg-blue-600.transition-colors
+              Pay $30
+    / Committed Players
+    - if @committed_users.any?
+      .mt-6.pt-6.border-t.border-gray-200
+        %h3.text-lg.font-semibold.text-gray-900.mb-4
+          Committed Players (#{@committed_users.count})
+        .grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.xl:grid-cols-4.gap-3
+          - @committed_users.each do |user|
+            .flex.items-center.space-x-3.bg-gray-50.rounded-lg.p-3
+              .flex-shrink-0
+                .w-8.h-8.bg-green-100.rounded-full.flex.items-center.justify-center
+                  %span.text-sm.font-medium.text-green-700= user.initials
+              .flex-1.min-w-0
+                %p.text-sm.font-medium.text-gray-900.truncate= user.full_name
+                - if user == current_user
+                  %p.text-xs.text-green-600 You
+    - else
+      .mt-6.pt-6.border-t.border-gray-200.text-center
+        .text-gray-400.mb-2
+          %svg.w-12.h-12.mx-auto{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+            %path{:d => "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+        %h3.text-lg.font-medium.text-gray-900 No commitments yet
+        %p.text-gray-500.mt-1 Be the first to commit to this week's match!
+- else
+  .bg-yellow-50.border.border-yellow-200.rounded-lg.p-6.mb-8
+    .flex.items-center
+      %svg.w-6.h-6.text-yellow-600.mr-3{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+        %path{:d => "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+      %div
+        %h3.text-lg.font-medium.text-yellow-800 No Current Week Scheduled
+        %p.text-yellow-700.mt-1 There's no match scheduled for this week. Check back later or contact an admin to schedule one.
